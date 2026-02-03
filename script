@@ -1,0 +1,41 @@
+# Çalıştır geçmişini temizlemek için
+# Son 2 girdiyi silmek üzere düzenleyeceğiz
+
+# Çalıştır geçmişinin registry yolunu belirle
+$registryPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
+
+# Registry anahtarının var olup olmadığını kontrol et
+if (Test-Path $registryPath) {
+    # Tüm değerleri al
+    $values = Get-ItemProperty -Path $registryPath
+    
+    # MRUList değerini al (en son kullanılanların sıralaması)
+    $mruList = $values.MRUList
+    
+    if ($mruList.Length -ge 2) {
+        Write-Host "Son 2 girdi siliniyor..." -ForegroundColor Yellow
+        
+        # Son 2 karakteri (son 2 girdiyi) MRUList'ten kaldır
+        $newMruList = $mruList.Substring(0, $mruList.Length - 2)
+        
+        # Son 2 girdiyi registry'den sil
+        $lastChar1 = $mruList[-1]
+        $lastChar2 = $mruList[-2]
+        
+        # İlk girdiyi sil
+        Remove-ItemProperty -Path $registryPath -Name $lastChar1 -ErrorAction SilentlyContinue
+        
+        # İkinci girdiyi sil
+        Remove-ItemProperty -Path $registryPath -Name $lastChar2 -ErrorAction SilentlyContinue
+        
+        # Yeni MRUList'i güncelle
+        Set-ItemProperty -Path $registryPath -Name "MRUList" -Value $newMruList
+        
+        Write-Host "Son 2 girdi başarıyla silindi!" -ForegroundColor Green
+    } else {
+        Write-Host "Silinecek yeterli girdi yok." -ForegroundColor Yellow
+        Write-Host "Mevcut girdi sayısı: $($mruList.Length)" -ForegroundColor Cyan
+    }
+} else {
+    Write-Host "Çalıştır geçmişi bulunamadı." -ForegroundColor Red
+}
