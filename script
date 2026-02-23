@@ -1,1 +1,126 @@
+METALIX_MAPPINGS_V1
+CLASS	net/minecraft/client/gui/GuiScreen	net/minecraft/client/Vo
+CLASS	net/minecraft/client/Minecraft	net/minecraft/client/W0
+CLASS	net/minecraft/util/Timer	net/minecraft/PY
+CLASS	net/minecraft/client/multiplayer/WorldClient	net/minecraft/client/Cd
+CLASS	net/minecraft/entity/EntityLivingBase	net/minecraft/to
+CLASS	net/minecraft/world/World	net/minecraft/aV
+CLASS	net/minecraft/client/entity/EntityPlayerSP	net/minecraft/client/CH
+CLASS	net/minecraft/network/play/server/S12PacketEntityVelocity	net/minecraft/W
+CLASS	net/minecraft/inventory/Container	net/minecraft/aw
+CLASS	net/minecraft/util/BlockPos	net/minecraft/BlockPos
+CLASS	net/minecraft/network/play/client/C02PacketUseEntity	net/minecraft/Cf
+CLASS	net/minecraft/network/Packet	net/minecraft/Nx
+CLASS	net/minecraft/network/play/client/C08PacketPlayerBlockPlacement	net/minecraft/gt
+CLASS	net/minecraft/network/play/client/C0EPacketClickWindow	net/minecraft/PI
+CLASS	net/minecraft/client/entity/AbstractClientPlayer	net/minecraft/client/CI
+CLASS	net/minecraft/entity/player/EntityPlayer	net/minecraft/t_
+CLASS	net/minecraft/entity/Entity	net/minecraft/Gr
+CLASS	net/minecraft/util/MovementInput	net/minecraft/Pp
+CLASS	net/minecraft/entity/player/InventoryPlayer	net/minecraft/D
+CLASS	net/minecraft/network/EnumConnectionState	net/minecraft/og
+CLASS	net/minecraft/client/network/NetHandlerPlayClient	net/minecraft/client/sX
+CLASS	net/minecraft/network/NetworkManager	net/minecraft/zz
+CLASS	net/minecraft/network/EnumPacketDirection	net/minecraft/z5
+CLASS	net/minecraft/item/Item	net/minecraft/kO
+CLASS	net/minecraft/util/ChatComponentText	net/minecraft/vQ
+CLASS	net/minecraft/inventory/Slot	net/minecraft/Z
+CLASS	net/minecraft/world/IBlockAccess	net/minecraft/eX
+CLASS	net/minecraft/util/EnumFacing	net/minecraft/client/II
+CLASS	net/minecraft/util/IChatComponent	net/minecraft/PE
+CLASS	net/minecraft/client/multiplayer/PlayerControllerMP	net/minecraft/client/la
+CLASS	net/minecraft/util/Vec3	net/minecraft/UD
+CLASS	net/minecraft/network/play/client/C02PacketUseEntity/Action	net/minecraft/zp
+CLASS	net/minecraft/network/play/client/C09PacketHeldItemChange	net/minecraft/Cn
+CLASS	net/minecraft/network/play/client/C0APacketAnimation	net/minecraft/gg
+CLASS	net/minecraft/item/ItemStack	net/minecraft/gO
+CLASS	net/minecraft/network/play/client/C04PacketPlayerPosition	net/minecraft/jF
+CLASS	net/minecraft/network/play/client/C01PacketChatMessage	net/minecraft/ZH
+FIELD	net/minecraft/entity/Entity.posZ	128
+FIELD	net/minecraft/client/Minecraft.thePlayer	432
+FIELD	net/minecraft/client/Minecraft.theMinecraft	108
+FIELD	net/minecraft/inventory/Container.inventorySlots	32
+FIELD	java/util/ArrayList.elementData	20
+FIELD	net/minecraft/util/Timer.timerSpeed	76
+FIELD	java/util/ArrayList.size	16
+FIELD	net/minecraft/client/Minecraft.currentScreen	280
+FIELD	net/minecraft/client/Minecraft.timer	296
+FIELD	net/minecraft/client/Minecraft.ingameGUI	464
+FIELD	net/minecraft/util/Timer.ticksPerSecond	72
+FIELD	net/minecraft/util/EnumFacing.HORIZONTALS	0
+FIELD	net/minecraft/entity/player/EntityPlayer.inventoryContainer	772
+FIELD	net/minecraft/util/Timer.renderPartialTicks	84
+FIELD	net/minecraft/client/entity/EntityPlayerSP.movementInput	908
+FIELD	net/minecraft/network/EnumPacketDirection.SERVERBOUND	104
+FIELD	net/minecraft/util/MovementInput.moveStrafe	12
+FIELD	net/minecraft/util/MovementInput.moveForward	16
+FIELD	net/minecraft/client/entity/EntityPlayerSP.sendQueue	928
+FIELD	net/minecraft/util/MovementInput.isJumping	21
+FIELD	net/minecraft/network/NetworkManager.channel	36
+FIELD	net/minecraft/entity/Entity.rotationPitch	148
+FIELD	net/minecraft/entity/Entity.rotationYaw	168
+FIELD	net/minecraft/entity/Entity.stepHeight	176
+FIELD	net/minecraft/entity/Entity.worldObj	308
+FIELD	net/minecraft/entity/Entity.posX	96
+FIELD	net/minecraft/entity/Entity.posY	40
+FIELD	net/minecraft/entity/EntityLivingBase.hurtTime	516
+FIELD	net/minecraft/entity/EntityLivingBase.jumpMovementFactor	492
+FIELD	net/minecraft/network/EnumConnectionState.PLAY	124
+FIELD	net/minecraft/client/network/NetHandlerPlayClient.netManager	44
+FIELD	net/minecraft/network/EnumPacketDirection.CLIENTBOUND	108
+FIELD	net/minecraft/entity/player/EntityPlayer.inventory	800
+FIELD	net/minecraft/entity/player/InventoryPlayer.mainInventory	24
+FIELD	net/minecraft/entity/player/InventoryPlayer.armorInventory	32
+FIELD	net/minecraft/world/World.playerEntities	188
+FIELD	com/mojang/authlib/GameProfile.name	20
+FIELD	net/minecraft/entity/player/EntityPlayer.gameProfile	784
+FIELD	net/minecraft/entity/Entity.motionX	72
+FIELD	net/minecraft/entity/Entity.motionZ	24
+FIELD	net/minecraft/util/EnumFacing.SOUTH	140
+FIELD	net/minecraft/inventory/Container.windowId	20
+FIELD	net/minecraft/entity/player/EntityPlayer.openContainer	752
+FIELD	net/minecraft/util/EnumFacing.DOWN	132
+FIELD	net/minecraft/util/EnumFacing.UP	152
+FIELD	net/minecraft/util/EnumFacing.WEST	124
+FIELD	net/minecraft/util/EnumFacing.EAST	128
+FIELD	net/minecraft/util/EnumFacing.NORTH	148
+FIELD	net/minecraft/client/Minecraft.playerController	328
+FIELD	net/minecraft/network/play/client/C02PacketUseEntity.distance	16
+FIELD	net/minecraft/network/play/client/C02PacketUseEntity/Action.ATTACK	112
+METHOD	net/minecraft/network/EnumConnectionState.getPacket	O	(Lnet/minecraft/z5;I)Lnet/minecraft/Nx;
+METHOD	net/minecraft/client/entity/EntityPlayerSP.closeScreen	G	()V
+METHOD	net/minecraft/client/gui/GuiScreen.sendChatMessageVerify	n	(Ljava/lang/String;Z)V
+METHOD	net/minecraft/client/gui/GuiScreen.sendChatMessage	H	(Ljava/lang/String;)V
+METHOD	net/minecraft/client/entity/EntityPlayerSP.swingItem	V	()V
+METHOD	net/minecraft/util/BlockPos.<init>	<init>	(III)V
+METHOD	net/minecraft/item/Item.getIdFromItem	N	(Lnet/minecraft/kO;)I
+METHOD	net/minecraft/network/play/client/C02PacketUseEntity.<init>	<init>	(Lnet/minecraft/Gr;Lnet/minecraft/zp;)V
+METHOD	net/minecraft/entity/player/InventoryPlayer.getCurrentItem	E	()Lnet/minecraft/gO;
+METHOD	net/minecraft/entity/player/EntityPlayer.jump	v	()V
+METHOD	net/minecraft/inventory/Container.getSlot	Q	(I)Lnet/minecraft/Z;
+METHOD	net/minecraft/inventory/Slot.getHasStack	v	()Z
+METHOD	net/minecraft/inventory/Container.slotClick	G	(IIILnet/minecraft/t_;)Lnet/minecraft/gO;
+METHOD	net/minecraft/inventory/Container.getNextTransactionID	w	(Lnet/minecraft/D;)S
+METHOD	net/minecraft/entity/EntityLivingBase.getHealth	H	()F
+METHOD	net/minecraft/world/World.getBlockState	z	(Lnet/minecraft/BlockPos;)Lnet/minecraft/P4;
+METHOD	net/minecraft/world/World.isAirBlock	B	(Lnet/minecraft/BlockPos;)Z
+METHOD	net/minecraft/world/World.doesBlockHaveSolidTopSurface	K	(Lnet/minecraft/eX;Lnet/minecraft/BlockPos;)Z
+METHOD	net/minecraft/entity/EntityLivingBase.getMaxHealth	l	()F
+METHOD	net/minecraft/entity/EntityLivingBase.getLookVec	s	()Lnet/minecraft/UD;
+METHOD	io/netty/channel/Channel.writeAndFlush	writeAndFlush	(Ljava/lang/Object;)Lio/netty/channel/ChannelFuture;
+METHOD	net/minecraft/entity/EntityLivingBase.setSprinting	o	(Z)V
+METHOD	net/minecraft/entity/Entity.setPosition	D	(DDD)V
+METHOD	net/minecraft/util/Vec3.<init>	<init>	(DDD)V
+METHOD	net/minecraft/entity/Entity.setVelocity	I	(DDD)V
+METHOD	net/minecraft/network/play/client/C01PacketChatMessage.<init>	<init>	(Ljava/lang/String;)V
+METHOD	net/minecraft/client/multiplayer/PlayerControllerMP.onPlayerRightClick	U	(Lnet/minecraft/client/CH;Lnet/minecraft/client/Cd;Lnet/minecraft/gO;Lnet/minecraft/BlockPos;Lnet/minecraft/Nj;Lnet/minecraft/UD;)Z
+METHOD	net/minecraft/client/multiplayer/PlayerControllerMP.attackEntity	G	(Lnet/minecraft/t_;Lnet/minecraft/Gr;)V
+METHOD	net/minecraft/client/entity/EntityPlayerSP.addChatMessage	J	(Lnet/minecraft/PE;)V
+METHOD	net/minecraft/util/ChatComponentText.<init>	<init>	(Ljava/lang/String;)V
+METHOD	net/minecraft/network/play/client/C09PacketHeldItemChange.<init>	<init>	(I)V
+METHOD	net/minecraft/network/play/client/C0APacketAnimation.<init>	<init>	()V
+METHOD	net/minecraft/client/network/NetHandlerPlayClient.handleVelocity	A	(Lnet/minecraft/W;)V
+METHOD	net/minecraft/network/play/client/C08PacketPlayerBlockPlacement.<init>	<init>	(Lnet/minecraft/BlockPos;ILnet/minecraft/gO;FFF)V
+METHOD	net/minecraft/network/play/client/C0EPacketClickWindow.<init>	<init>	(IIIILnet/minecraft/gO;S)V
+METHOD	net/minecraft/item/ItemStack.getItem	l	()Lnet/minecraft/kO;
 
